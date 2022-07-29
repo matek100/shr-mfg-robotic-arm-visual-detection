@@ -18,6 +18,7 @@ Application is used to precisely determine the center of a package when it is lo
  * when a reponse (message) is received save the image
 5. detect the package in the image and calculate its exact center (x, y)
  * use OpenCV JavaScript bindings, for example: https://docs.opencv.org/3.4/d5/d10/tutorial_js_root.html
+ * an alternative is to manually detect the package, for example by differentiating a white background from the color of the package --> after the object is detected, determine its x and y limit values and from this data calculate the center
 6. identify the package
  * detect and recognize the tags positioned on the top of the package
  * use AprilTag identification as described here: https://drive.google.com/drive/folders/1lccpQJGc88Jd10sV0wCiwD8eN0oxTAtf
