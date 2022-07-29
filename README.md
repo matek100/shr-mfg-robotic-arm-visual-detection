@@ -6,12 +6,12 @@ Application is used to precisely determine the center of a package when it is lo
 ## Functionalities for visual detection of the package and robotic arm position correction
 * move the robotic arm above the approximate position of a package
   * for communication with the robot use the HTTP server linked below
-  * /basic/state API endpoint returns complete state of the robotic arm, including the current location
-  * /basic/moveTo API endpoint makes an absolute move of the robotic arm
-  * /basic/suction API endpoint enables and disables the suction
+  * <code>/basic/state</code> API endpoint returns complete state of the robotic arm, including the current location
+  * <code>/basic/moveTo</code> API endpoint makes an absolute move of the robotic arm
+  * <code>/basic/suction</code> API endpoint enables and disables the suction
 * measure the distance of the package from the camera
 * using the camera capture an image of the package (call HTTP API endpoint /image)
-  * /image API endpoint is used to capture a color rectangular image and send it
+  * <code>/image</code> API endpoint is used to capture a color rectangular image and send it
 * detect the package and its exact center (python)
 * calculate the offset (x, y) of the center of the package from the center of the image (python)
 * move the robotic arm to the correct position
