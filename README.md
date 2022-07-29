@@ -4,12 +4,19 @@
 Application is used to precisely determine the center of a package when it is loaded/unloaded by HiWonder Jetmax Robotic Arm from the robot car or from the warehouse. Using on-board camera and image detection and recognition methods from opencv library, the application detects the exact position of the package and its distance from the camera / suction hand.
 
 ## Functionalities for visual detection of the package and robotic arm position correction
-* move the robotic arm above the approximate position of a package (for communication with the robot use the HTTP server linked below)
+* move the robotic arm above the approximate position of a package
+  * for communication with the robot use the HTTP server linked below
+  * /basic/state API endpoint returns complete state of the robotic arm, including the current location
+  * /basic/moveTo API endpoint makes an absolute move of the robotic arm
+  * /basic/suction API endpoint enables and disables the suction
 * measure the distance of the package from the camera
 * using the camera capture an image of the package (call HTTP API endpoint /image)
-* detect the package and its exact center
-* calculate the offset (x, y) of the center of the package from the center of the image
-* move the robotic arm to the correct position = the suction hand must be exactly at the center of the package and at the correct height
+  * /image API endpoint is used to capture a color rectangular image and send it
+* detect the package and its exact center (python)
+* calculate the offset (x, y) of the center of the package from the center of the image (python)
+* move the robotic arm to the correct position
+  * use the HTTP server API
+  * the suction hand must be exactly at the center of the package and at the correct height
 * **NOTE**: when moving the arm consider the offset from the suction hand to the camera
 
 ## Jetmax Robotic Arm
