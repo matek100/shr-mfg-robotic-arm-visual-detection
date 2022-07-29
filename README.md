@@ -23,3 +23,4 @@ Jetmax Robotic Arm functions are written in python. The following link include s
 
 For detailed instructions and video tutorials, check this: https://drive.google.com/drive/folders/1GBiwRRy0NYdtOc2z0U2wGOYut7UGFls6
 
+A useful example, block stacking: https://drive.google.com/drive/folders/1lccpQJGc88Jd10sV0wCiwD8eN0oxTAtf
