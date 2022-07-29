@@ -3,24 +3,28 @@
 ## General description
 Application is used to precisely determine the center of a package when it is loaded/unloaded by HiWonder Jetmax Robotic Arm from the robot car or from the warehouse. Using on-board camera and image detection and recognition methods from opencv library, the application detects the exact position of the package and its distance from the camera / suction hand.
 
-## Functionalities for visual detection of the package and robotic arm position correction
-
-
-
-* move the robotic arm above the approximate position of a package
-  * for communication with the robot use the HTTP server linked below
-  * <code>/basic/state</code> API endpoint returns complete state of the robotic arm, including the current location
-  * <code>/basic/moveTo</code> API endpoint makes an absolute move of the robotic arm
-  * <code>/basic/suction</code> API endpoint enables and disables the suction
-* measure the distance of the package from the camera
-* using the camera capture an image of the package
-  * <code>/image</code> API endpoint is used to capture a color rectangular image and send it
-* detect the package and its exact center (python)
-* calculate the offset (x, y) of the center of the package from the center of the image (python)
-* move the robotic arm to the correct position
-  * use the HTTP server API
-  * the suction hand must be exactly at the center of the package and at the correct height
-* **NOTE**: when moving the arm consider the offset from the suction hand to the camera
+## Visual detection of the package and calculation of its exact center
+1. define a new API endpoint for the HTTP server linked below
+ * <code>/packageCenter</code>
+ * parameters: x, y, z (approximate center of the package)
+ * returns: x, y, z (exact center of the package)
+2. when a request is received to the above endpoint, move the robotic arm to the location above the approximate center of the package
+ * <code>/basic/moveTo</code> API endpoint makes an absolute move of the robotic arm
+ * consider the offset between the camera and the suction hand
+2.1. calculate the distance of the package from the camera
+ * use the definition and measurement of the robotic arm operational area described in https://github.com/fsprojekti/rack-warehouse-jetmax and https://github.com/fsprojekti/plk-blockchain
+2.2. capture an image from the camera
+ * subscribe to the <code>/usb_cam/image_rect_color</code> socket and wait for the response
+ * when a reponse (message) is received save the image
+2.3. detect the package in the image and calculate its exact center (x, y)
+ * use OpenCV JavaScript bindings, for example: https://docs.opencv.org/3.4/d5/d10/tutorial_js_root.html
+Communication with the robot is done via the HTTP server linked below. Define a new
+2.3. identify the package
+ * detect and recognize the tags positioned on the top of the package
+ * use AprilTag identification as described here: https://drive.google.com/drive/folders/1lccpQJGc88Jd10sV0wCiwD8eN0oxTAtf
+2.4. a message sent in response to the <code>/packageCenter</code> request must include
+ * x, y, z: the coordinates of the exact center of the package
+ * ID: package identification number
 
 ## Jetmax Robotic Arm
 Hiwonder JetMax JETSON NANO Robot Arm ROS Open Source robot, more info: https://www.hiwonder.hk/collections/jetson/products/hiwonder-jetmax-jetson-nano-robot-arm-ros-open-source-vision-recognition-program-robot
