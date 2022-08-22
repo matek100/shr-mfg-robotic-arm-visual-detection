@@ -1,7 +1,7 @@
 import numpy as np
 import cv2 as cv
 
-cap = cv.VideoCapture()
+cap = cv.VideoCapture("http://192.168.220.167:8080/stream?topic=/usb_cam/image_rect_color")
 if not cap.isOpened():
     print("Cannot open camera")
     exit()
@@ -20,7 +20,8 @@ while True:
     for i in circles[0,:]:
         cv.circle(gray,(i[0],i[1]),i[2],(0,255,0),2)
         cv.circle(gray,(i[0],i[1]),2,(0,0,255),3)
-        print("circle: " + i + "center: x: " + i[0] + " y: " i[1] + " circ: " + i[2])
+        org = (i[0], i[1])
+        cv.putText(gray, "x: " + i[0] + " y: " + i[1] + " radius: " + i[2], org, cv.FONT_HERSHEY_SCRIPT_SIMPLEX, 1, (255, 0, 0), 2, cv.LINE_AA)
 
     cv.imshow("frame", gray)
     if cv.waitKey(1) == ord('q'):
